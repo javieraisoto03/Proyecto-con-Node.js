@@ -1,5 +1,13 @@
 import express from 'express'
+import {authmiddleware} from './middlewares/auth.middleware.js'
+
 const app = express()
+
+console.log(__dirname)
+
+
+//middleware
+app.use(express.static('public'))
 
 //enrutamiento
 app.get('/', (req, res) => {
@@ -30,7 +38,7 @@ app.get('/products/:id', (req, res) => {
     const {id} = req.params
     const product = products.find(item => item.id === +id)
 
-    if(product){
+    if(!product){
         return res.status(404).json({msg: 'No se encontro el producto'})
     }
 
